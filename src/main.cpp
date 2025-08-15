@@ -7,7 +7,7 @@ int main()
     constexpr int screenWidth = 800;
     constexpr int screenHeight = 600;
       
-    InitWindow(screenWidth, screenHeight, "Bola Atiradora");
+    InitWindow(screenWidth, screenHeight, "Bola Atiradora 0.1");
     SetTargetFPS(60);
     Game game;
 
