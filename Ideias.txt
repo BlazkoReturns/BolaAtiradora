@@ -1,0 +1,14 @@
+- Ideias para o jogo:
+    Dificuldades Humano (2 direções), Macaco (4 direções) e Polvo (8 direções)
+    Registro de Recordes
+    Músicas e sons
+    Animação de 'pulse' ao atirar.
+    Tela Inicial do jogo
+    Modificadores de dificuldade:
+        armor para os inimigos (cor da bola) - fixa ou variável
+        ghosts - acertar um ghost é gameover
+        direções invertidas
+        visibilidade limitada
+        tiros que encostem nas bordas é gameover
+        tiros lançados simultaneamente
+        
