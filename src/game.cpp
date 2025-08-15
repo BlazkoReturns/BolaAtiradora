@@ -101,10 +101,7 @@ void Game::TelaGameOver(){
 
 void Game::VerificaColisoes(){
    for (auto& inimigo: inimigos){
-      if ((inimigo.nDirecao == 1 && inimigo.vPosicaoInimigo.y >= (GetScreenHeight()/2)-50-inimigo.nRaio) || 
-          (inimigo.nDirecao == 2 && inimigo.vPosicaoInimigo.y <= (GetScreenHeight()/2)+50+inimigo.nRaio) ||
-          (inimigo.nDirecao == 3 && inimigo.vPosicaoInimigo.x >= (GetScreenWidth()/2)-50-inimigo.nRaio)  ||
-          (inimigo.nDirecao == 4 && inimigo.vPosicaoInimigo.x <= (GetScreenWidth()/2)+50+inimigo.nRaio)){
+      if (CheckCollisionCircles({400,300},50,{inimigo.vPosicaoInimigo.x,inimigo.vPosicaoInimigo.y},inimigo.nRaio)){
             lGameOver = true;
             break;   
       }           

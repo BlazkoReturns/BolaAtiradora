@@ -4,6 +4,8 @@
     Músicas e sons
     Animação de 'pulse' ao atirar.
     Tela Inicial do jogo
+    Skins de prestígo para a bola central
+    modificação de cores do fundo
     Modificadores de dificuldade:
         armor para os inimigos (cor da bola) - fixa ou variável
         ghosts - acertar um ghost é gameover
