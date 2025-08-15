@@ -1,0 +1,3 @@
+-Fazer com que tudo seja amarrado via variaveis e não tenha nenhum local onde estou somando valores específicos
+-mudar o formato dos inimigos para bolas, vai facilitar checar as colisões e dar um tema ao jogo
+-mudando pra bola mudar as funções de colisão
