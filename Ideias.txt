@@ -13,4 +13,5 @@
         visibilidade limitada
         tiros que encostem nas bordas é gameover
         tiros lançados simultaneamente
+        modo horda
         
