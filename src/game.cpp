@@ -1,12 +1,27 @@
 #include "game.h"
 
 Game::Game(){
-   nDificuldadeBase = 0.6;
+
+   InitWindow(nLadoTela, nLadoTela, "Bola Atiradora 0.1");
+   SetTargetFPS(60);
+
+   lGameOver = false;
    nPontuacao = 0;
+   
+   /*Variáveis relacionadas a dificuldade do jogo*/
+   nDificuldadeBase = 0.6;
    nMultiplicadorVelocidade = 1;
    nNivelDificuldade = 1;
    nTempoUltimoInimigo = 0;
-   lGameOver = false;  
+   nVelocidadeInicialInimigo =5;
+   
+   /*Variáveis de tamanhos dos objetos*/
+   nRaioBola = 50;
+   nRaioInimigo = 10;
+   nRaioTiro = 7;
+   ball.nRaioBola = nRaioBola;
+   ball.nLadoTela = nLadoTela;
+
 }
 
 
@@ -63,7 +78,7 @@ void Game::GeraInimigos(){
    }
 
    if(nTempoAgora - nTempoUltimoInimigo > nDificuldadeBase) {
-      inimigos.push_back(Inimigos(GetRandomValue(1,4),nMultiplicadorVelocidade)); 
+      inimigos.push_back(Inimigos(GetRandomValue(1,4),nVelocidadeInicialInimigo,nMultiplicadorVelocidade,nRaioInimigo,nLadoTela)); 
       nTempoUltimoInimigo = GetTime();
    }
 
@@ -71,46 +86,41 @@ void Game::GeraInimigos(){
 
 void Game::ProcessamentoComandos(){
    if (IsKeyPressed(KEY_UP)) {
-      tiros.push_back(Tiro(1));
+      tiros.push_back(Tiro(1,nLadoTela,nRaioTiro,nRaioBola));
    }else if (IsKeyPressed(KEY_DOWN)) {
-      tiros.push_back(Tiro(2));
+      tiros.push_back(Tiro(2,nLadoTela,nRaioTiro,nRaioBola));
    }else if (IsKeyPressed(KEY_LEFT)){
-      tiros.push_back(Tiro(3));
+      tiros.push_back(Tiro(3,nLadoTela,nRaioTiro,nRaioBola));
    } else if (IsKeyPressed(KEY_RIGHT)){
-      tiros.push_back(Tiro(4));
+      tiros.push_back(Tiro(4,nLadoTela,nRaioTiro,nRaioBola));
    }
 }
 
 void Game::TelaGameOver(){
    DrawText(TextFormat("Score: %08i", nPontuacao), 10, 10, 20, BLACK);
-   DrawText("Game Over",GetScreenWidth()/2-MeasureText("Game Over",50)/2,GetScreenHeight()/2,50,BLACK);
-   DrawText("Press any key to try again",GetScreenWidth()/2-MeasureText("Press any key to try again",30)/2,(GetScreenHeight()/2)+60,30,BLACK);
-   
+   DrawText("Game Over",nLadoTela/2-MeasureText("Game Over",50)/2,nLadoTela/2,50,BLACK);
+   DrawText("Press any key to try again",nLadoTela/2-MeasureText("Press any key to try again",30)/2,(nLadoTela/2)+60,30,BLACK);
+   DesabilitaObjetos(true);
+
    if (GetKeyPressed() != 0){
-      
       lGameOver = false;
       nDificuldadeBase = 0.6;
       nMultiplicadorVelocidade = 1;
       nNivelDificuldade = 1;
       nPontuacao = 0;
       nTempoUltimoInimigo = 0;
-      
-      DesabilitaObjetos(true);
    }
 }
 
 void Game::VerificaColisoes(){
    for (auto& inimigo: inimigos){
-      if (CheckCollisionCircles({400,300},50,{inimigo.vPosicaoInimigo.x,inimigo.vPosicaoInimigo.y},inimigo.nRaio)){
+      if (CheckCollisionCircles({nLadoTela/2,nLadoTela/2},50,{inimigo.vPosicaoInimigo.x,inimigo.vPosicaoInimigo.y},inimigo.nRaioInimigo)){
             lGameOver = true;
             break;   
       }           
       
       for (auto& tiro: tiros){
-         if ((tiro.nDirecao == 1 && inimigo.nDirecao == 1 && (tiro.vPosicaoTiro.y)<=(inimigo.vPosicaoInimigo.y + inimigo.nRaio)) ||
-             (tiro.nDirecao == 2 && inimigo.nDirecao == 2 && (tiro.vPosicaoTiro.y+10)>=(inimigo.vPosicaoInimigo.y - inimigo.nRaio)) ||
-             (tiro.nDirecao == 3 && inimigo.nDirecao == 3 && (tiro.vPosicaoTiro.x)<=(inimigo.vPosicaoInimigo.x + inimigo.nRaio)) ||
-             (tiro.nDirecao == 4 && inimigo.nDirecao == 4 && (tiro.vPosicaoTiro.x+10)>=(inimigo.vPosicaoInimigo.x - inimigo.nRaio))){
+         if (CheckCollisionCircles({tiro.vPosicaoTiro.x,tiro.vPosicaoTiro.y},nRaioTiro,{inimigo.vPosicaoInimigo.x,inimigo.vPosicaoInimigo.y},nRaioInimigo)){
                 inimigo.lDesenhar = false;
                 tiro.lDesenhar = false;
                 nPontuacao += nNivelDificuldade;
