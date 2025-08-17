@@ -3,16 +3,16 @@
 
 class Tiro{
     public:
-      Tiro(int direcao);
+      Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnRaioBola);
+      
       void Atualizar();
       void Desenhar();
-      int nDirecao;
-      Vector2 vPosicaoTiro;
+      
       bool lDesenhar;
       
-    private:
-    int nLargura;
-    int nAltura;
-    int nVelocidadex;
-    int nVelocidadey;
+      int nRaioTiro;
+      int nLadoTela;
+      
+      Vector2 vPosicaoTiro;
+      Vector2 vVelocidadeTiro;
 };

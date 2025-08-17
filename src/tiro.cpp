@@ -1,44 +1,46 @@
 #include "tiro.h"
 
-Tiro::Tiro(int direcao)
-   :nLargura(10)
-   ,nAltura(10)
-   ,nVelocidadex(0)
-   ,nVelocidadey(0)   
+Tiro::Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnRaioBola)   
 {
 
-   nDirecao = direcao;
+   nLadoTela = xnLadoTela;
+   nRaioTiro = xnRaioTiro;
    lDesenhar = true;
 
-   if (direcao == 1 ){
-      nVelocidadey = -5;
-      vPosicaoTiro.x = 400-nLargura/2;
-      vPosicaoTiro.y = 250-nAltura;
-   } else if (direcao == 2){
-      nVelocidadey = +5;
-      vPosicaoTiro.x = 400-nLargura/2;
-      vPosicaoTiro.y = 350; 
-   } else if (direcao == 3){
-      nVelocidadex = -5;
-      vPosicaoTiro.x = 350-nLargura;
-      vPosicaoTiro.y = 300-nAltura/2;
-   } else if (direcao == 4){
-      nVelocidadex = +5;
-      vPosicaoTiro.x = 450;
-      vPosicaoTiro.y = 300-nAltura/2;
+
+   if (xnDirecao == 1 ){ /*Cima*/
+      vVelocidadeTiro.y = -5;
+      vVelocidadeTiro.x =0 ;
+      vPosicaoTiro.x = (nLadoTela/2);
+      vPosicaoTiro.y = (nLadoTela/2)-(nRaioTiro/2)-xnRaioBola;
+   } else if (xnDirecao == 2){ /*Baixo*/
+      vVelocidadeTiro.y = +5;
+      vVelocidadeTiro.x =0 ;
+      vPosicaoTiro.x = (nLadoTela/2);
+      vPosicaoTiro.y = (nLadoTela/2)+(nRaioTiro/2)+xnRaioBola; 
+   } else if (xnDirecao == 3){/*Esqueda*/
+      vVelocidadeTiro.x = -5;
+      vVelocidadeTiro.y = 0 ;
+      vPosicaoTiro.x = (nLadoTela/2)-(nRaioTiro/2)-xnRaioBola;
+      vPosicaoTiro.y = (nLadoTela/2);
+   } else if (xnDirecao == 4){/*Direita*/
+      vVelocidadeTiro.x = +5;
+      vVelocidadeTiro.y = 0;
+      vPosicaoTiro.x = (nLadoTela/2)+(nRaioTiro/2)+xnRaioBola;
+      vPosicaoTiro.y = (nLadoTela/2);
    };  
 }
 
 void Tiro::Atualizar(){
-    vPosicaoTiro.x += nVelocidadex;
-    vPosicaoTiro.y += nVelocidadey;
+    vPosicaoTiro.x += vVelocidadeTiro.x;
+    vPosicaoTiro.y += vVelocidadeTiro.y;
 
-    if (vPosicaoTiro.x >= 800 || vPosicaoTiro.y >= 600 || vPosicaoTiro.x <= 0 || vPosicaoTiro.y <=0){
+    if (vPosicaoTiro.x >= nLadoTela || vPosicaoTiro.y >= nLadoTela || vPosicaoTiro.x <= 0 || vPosicaoTiro.y <=0){
       lDesenhar = false;
     }
 }
 
 void Tiro::Desenhar(){
-    DrawRectangleLines(vPosicaoTiro.x, vPosicaoTiro.y, nLargura, nAltura ,BLACK);
+    DrawCircleLines(vPosicaoTiro.x, vPosicaoTiro.y, nRaioTiro ,BLACK);
 }
 
