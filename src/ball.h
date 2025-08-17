@@ -5,6 +5,7 @@ class Ball
 public:
     Ball();
     void Draw() const;
-
-    int radius;    
+    
+    int nLadoTela;
+    int nRaioBola;
 };

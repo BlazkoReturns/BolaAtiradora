@@ -1,12 +1,11 @@
 #include "ball.h"
 #include <raylib.h>
 
-Ball::Ball() 
-    :radius(50) 
+Ball::Ball()  
 {
 }
 
 void Ball::Draw() const
 {
-    DrawCircleLines(GetScreenWidth()/2, GetScreenHeight()/2, radius, BLACK);
+    DrawCircleLines(nLadoTela/2, nLadoTela/2, nRaioBola, BLACK);
 }
