@@ -14,4 +14,5 @@
         tiros que encostem nas bordas é gameover
         tiros lançados simultaneamente
         modo horda
+        as vezes algumas bolas podem nascer com a posição adiantada
         
