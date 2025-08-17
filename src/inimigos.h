@@ -3,15 +3,15 @@
 
 class Inimigos{
 public:
-    Inimigos(int nDirecao, int nMultiVelocidade);
+    Inimigos(int xnDirecao, int xnVelocidadeInicialInimigo, int xnMultiVelocidade, int xnRaioInimigo, int xnLadoTela);
 
     void Atualizar();
     void Desenhar();
     
     bool lDesenhar;
-    double nVelocidadex;
-    double nVelocidadey;
-    int nDirecao;
-    float nRaio;
-    Vector2 vPosicaoInimigo;    
+
+    int nRaioInimigo;
+    
+    Vector2 vPosicaoInimigo;
+    Vector2 vVelocidadeInimigo;    
 };
