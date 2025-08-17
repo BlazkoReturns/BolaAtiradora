@@ -1,3 +1,9 @@
--Fazer com que tudo seja amarrado via variaveis e não tenha nenhum local onde estou somando valores específicos
+17/08/2025
+-Fazer com que tudo seja amarrado via variaveis e não tenha nenhum local onde estou somando valores específicos -> feito, revisar depois se esta tudo certo.
 -mudar o formato dos inimigos para bolas, vai facilitar checar as colisões e dar um tema ao jogo
 -mudando pra bola mudar as funções de colisão
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-certificar q quando uma colisão acontece as classes dos objetos estão de fato sumindo
+
