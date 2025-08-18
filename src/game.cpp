@@ -10,6 +10,7 @@ Game::Game(){
    
    /*Variáveis relacionadas a dificuldade do jogo*/
    nDificuldadeBase = 0.6;
+   nIntervaloOrigemInimigo = 10;
    nMultiplicadorVelocidade = 1;
    nNivelDificuldade = 1;
    nTempoUltimoInimigo = 0;
@@ -70,7 +71,7 @@ void Game::Desenhar(){
 void Game::GeraInimigos(){
    double nTempoAgora = GetTime();
 
-   if (nTempoAgora - nTempoAumentaVelocidade > 10.00){
+   if (nTempoAgora - nTempoAumentaVelocidade > nIntervaloOrigemInimigo){
       nDificuldadeBase -= 0.05;
       nMultiplicadorVelocidade += 0.1;
       nNivelDificuldade++;

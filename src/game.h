@@ -27,6 +27,7 @@ class Game{
        
        Ball ball;
        
+       int nIntervaloOrigemInimigo;
        int nMultiplicadorVelocidade;
        int nNivelDificuldade;
        int nPontuacao;
@@ -34,6 +35,7 @@ class Game{
        int nRaioBola;
        int nRaioTiro;
        int nVelocidadeInicialInimigo;
+
             
        double nDificuldadeBase;
        double nTempoAumentaVelocidade;
