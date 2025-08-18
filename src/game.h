@@ -29,6 +29,7 @@ class Game{
        
        int nIntervaloOrigemInimigo;
        int nMultiplicadorVelocidade;
+       double nFatorAumentoDificuldade;
        int nNivelDificuldade;
        int nPontuacao;
        int nRaioInimigo;

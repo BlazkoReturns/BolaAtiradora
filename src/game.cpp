@@ -10,6 +10,7 @@ Game::Game(){
    
    /*Variáveis relacionadas a dificuldade do jogo*/
    nDificuldadeBase = 0.6;
+   nFatorAumentoDificuldade = 0.05;
    nIntervaloOrigemInimigo = 10;
    nMultiplicadorVelocidade = 1;
    nNivelDificuldade = 1;
