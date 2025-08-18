@@ -3,7 +3,7 @@
 
 class Tiro{
     public:
-      Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnRaioBola);
+      Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnVelocidadeTiro,int xnRaioBola);
       
       void Atualizar();
       void Desenhar();

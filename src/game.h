@@ -13,12 +13,13 @@ class Game{
        void DesabilitaObjetos(bool lNovoJogo);
        void Desenhar();
        void GeraInimigos();
+       void InicializaVariaveis();
        void ProcessamentoComandos();
        void TelaGameOver();
        void VerificaColisoes();
                      
        bool lGameOver;
-       float nLadoTela = 800;
+       float nLadoTela = 900;
        
     private:
   
@@ -27,17 +28,19 @@ class Game{
        
        Ball ball;
        
+       int nMultiplicadorVelocidade;
        int nNivelDificuldade;
        int nPontuacao;
        int nRaioInimigo;
        int nRaioBola;
        int nRaioTiro;
        int nVelocidadeInicialInimigo;
-   
-       double nDificuldadeBase;
-       double nIntervaloOrigemInimigo;
-       double nFatorAumentoDificuldade;
-       double nMultiplicadorVelocidade;
+       int nVelocidadeTiro;
+
+       double nIntervaloGeraInimigo;     
+       double nFatorIntervaloGeraInimigo;
+       double nIntervaloAumentaDificuldade;
        double nTempoAumentaVelocidade;
-       double nTempoUltimoInimigo;       
+       double nTempoUltimoInimigo;
+       double nFatorAumentoMultiplicadorVelocidade;       
 };

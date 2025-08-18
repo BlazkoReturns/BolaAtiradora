@@ -1,6 +1,6 @@
 #include "tiro.h"
 
-Tiro::Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnRaioBola)   
+Tiro::Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnVelocidadeTiro,int xnRaioBola)   
 {
 
    nLadoTela = xnLadoTela;
@@ -9,22 +9,22 @@ Tiro::Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnRaioBola)
 
 
    if (xnDirecao == 1 ){ /*Cima*/
-      vVelocidadeTiro.y = -5;
+      vVelocidadeTiro.y = -xnVelocidadeTiro;
       vVelocidadeTiro.x =0 ;
       vPosicaoTiro.x = (nLadoTela/2);
       vPosicaoTiro.y = (nLadoTela/2)-(nRaioTiro/2)-xnRaioBola;
    } else if (xnDirecao == 2){ /*Baixo*/
-      vVelocidadeTiro.y = +5;
+      vVelocidadeTiro.y = +xnVelocidadeTiro;
       vVelocidadeTiro.x =0 ;
       vPosicaoTiro.x = (nLadoTela/2);
       vPosicaoTiro.y = (nLadoTela/2)+(nRaioTiro/2)+xnRaioBola; 
    } else if (xnDirecao == 3){/*Esqueda*/
-      vVelocidadeTiro.x = -5;
+      vVelocidadeTiro.x = -xnVelocidadeTiro;
       vVelocidadeTiro.y = 0 ;
       vPosicaoTiro.x = (nLadoTela/2)-(nRaioTiro/2)-xnRaioBola;
       vPosicaoTiro.y = (nLadoTela/2);
    } else if (xnDirecao == 4){/*Direita*/
-      vVelocidadeTiro.x = +5;
+      vVelocidadeTiro.x = +xnVelocidadeTiro;
       vVelocidadeTiro.y = 0;
       vPosicaoTiro.x = (nLadoTela/2)+(nRaioTiro/2)+xnRaioBola;
       vPosicaoTiro.y = (nLadoTela/2);

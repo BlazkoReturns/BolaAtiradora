@@ -7,24 +7,14 @@ Game::Game(){
 
    lGameOver = false;
 
-   /*Variáveis referentes a textos de tela*/
-   nPontuacao = 0;
-   nNivelDificuldade = 1;
-   
-   /*Variáveis relacionadas a dificuldade do jogo*/
-   nDificuldadeBase = 0.6;
-   nFatorAumentoDificuldade = 0.05;
-   nIntervaloOrigemInimigo = 10;
-   nMultiplicadorVelocidade = 1;
-   nTempoUltimoInimigo = 0;
-   nVelocidadeInicialInimigo =5;
-   
    /*Variáveis de tamanhos dos objetos*/
    nRaioBola = 50;
    nRaioInimigo = 10;
-   nRaioTiro = 7;
+   nRaioTiro = 5;
    ball.nRaioBola = nRaioBola;
    ball.nLadoTela = nLadoTela;
+
+   InicializaVariaveis();
 
 }
 
@@ -74,30 +64,56 @@ void Game::Desenhar(){
 void Game::GeraInimigos(){
    double nTempoAgora = GetTime();
 
-   if (nTempoAgora - nTempoAumentaVelocidade > nIntervaloOrigemInimigo){
-      nDificuldadeBase -= 0.05;
-      nMultiplicadorVelocidade += 0.1;
+   if (nTempoAgora - nTempoAumentaVelocidade > nIntervaloAumentaDificuldade){
+      nIntervaloGeraInimigo -= nFatorIntervaloGeraInimigo;
+      nMultiplicadorVelocidade += nFatorAumentoMultiplicadorVelocidade;
       nNivelDificuldade++;
       nTempoAumentaVelocidade = GetTime(); 
    }
 
-   if(nTempoAgora - nTempoUltimoInimigo > nDificuldadeBase) {
+   if(nTempoAgora - nTempoUltimoInimigo > nIntervaloGeraInimigo) {
       inimigos.push_back(Inimigos(GetRandomValue(1,4),nVelocidadeInicialInimigo,nMultiplicadorVelocidade,nRaioInimigo,nLadoTela)); 
       nTempoUltimoInimigo = GetTime();
    }
 
 }
 
+void Game::InicializaVariaveis(){
+
+   lGameOver = false;
+
+   /*Variáveis referentes a textos de tela*/
+   nPontuacao = 0;
+   nNivelDificuldade = 1;
+   
+   /*Variáveis relacionadas a dificuldade do jogo*/
+   nIntervaloAumentaDificuldade = 1;
+   nIntervaloGeraInimigo = 0.6;
+   
+   nFatorAumentoMultiplicadorVelocidade = 0.1;
+   nFatorIntervaloGeraInimigo = 0.05;
+   
+   nVelocidadeInicialInimigo = 5;
+   nVelocidadeTiro = 15;
+   
+   nMultiplicadorVelocidade = 1;
+   nTempoUltimoInimigo = 0;
+}
+
 void Game::ProcessamentoComandos(){
+
+   int nDirecaoTiro = 0;
+
    if (IsKeyPressed(KEY_UP)) {
-      tiros.push_back(Tiro(1,nLadoTela,nRaioTiro,nRaioBola));
+      nDirecaoTiro = 1;
    }else if (IsKeyPressed(KEY_DOWN)) {
-      tiros.push_back(Tiro(2,nLadoTela,nRaioTiro,nRaioBola));
+      nDirecaoTiro = 2;
    }else if (IsKeyPressed(KEY_LEFT)){
-      tiros.push_back(Tiro(3,nLadoTela,nRaioTiro,nRaioBola));
+      nDirecaoTiro = 3;
    } else if (IsKeyPressed(KEY_RIGHT)){
-      tiros.push_back(Tiro(4,nLadoTela,nRaioTiro,nRaioBola));
+      nDirecaoTiro = 4;
    }
+   tiros.push_back(Tiro(nDirecaoTiro,nLadoTela,nRaioTiro,nVelocidadeTiro,nRaioBola));
 }
 
 void Game::TelaGameOver(){
@@ -107,12 +123,7 @@ void Game::TelaGameOver(){
    DesabilitaObjetos(true);
 
    if (GetKeyPressed() != 0){
-      lGameOver = false;
-      nDificuldadeBase = 0.6;
-      nMultiplicadorVelocidade = 1;
-      nNivelDificuldade = 1;
-      nPontuacao = 0;
-      nTempoUltimoInimigo = 0;
+      InicializaVariaveis();
    }
 }
 
