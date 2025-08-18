@@ -6,6 +6,7 @@
     Tela Inicial do jogo
     Skins de prestígo para a bola central
     modificação de cores do fundo
+    modos de jogo: classico, endurance (seta uma velocidade e ve quanto a aguenta), modo timberman
     Modificadores de dificuldade:
         armor para os inimigos (cor da bola) - fixa ou variável
         ghosts - acertar um ghost é gameover
