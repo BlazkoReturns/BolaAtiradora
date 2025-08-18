@@ -27,18 +27,17 @@ class Game{
        
        Ball ball;
        
-       int nIntervaloOrigemInimigo;
-       int nMultiplicadorVelocidade;
-       double nFatorAumentoDificuldade;
        int nNivelDificuldade;
        int nPontuacao;
        int nRaioInimigo;
        int nRaioBola;
        int nRaioTiro;
        int nVelocidadeInicialInimigo;
-
-            
+   
        double nDificuldadeBase;
+       double nIntervaloOrigemInimigo;
+       double nFatorAumentoDificuldade;
+       double nMultiplicadorVelocidade;
        double nTempoAumentaVelocidade;
        double nTempoUltimoInimigo;       
 };

@@ -6,14 +6,16 @@ Game::Game(){
    SetTargetFPS(60);
 
    lGameOver = false;
+
+   /*Variáveis referentes a textos de tela*/
    nPontuacao = 0;
+   nNivelDificuldade = 1;
    
    /*Variáveis relacionadas a dificuldade do jogo*/
    nDificuldadeBase = 0.6;
    nFatorAumentoDificuldade = 0.05;
    nIntervaloOrigemInimigo = 10;
    nMultiplicadorVelocidade = 1;
-   nNivelDificuldade = 1;
    nTempoUltimoInimigo = 0;
    nVelocidadeInicialInimigo =5;
    
