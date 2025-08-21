@@ -16,9 +16,11 @@ class Game{
        void InicializaVariaveis();
        void ProcessamentoComandos();
        void TelaGameOver();
+       void TelaInicial();
        void VerificaColisoes();
                      
        bool lGameOver;
+       bool lIniciarJogo = false;
        float nLadoTela = 900;
        
     private:

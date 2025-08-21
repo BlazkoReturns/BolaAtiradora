@@ -4,23 +4,29 @@
 
 int main() 
 {    
+    
     Game game;
     
     while (!WindowShouldClose())
     {    
         BeginDrawing();
         ClearBackground(WHITE);
-        
-        if (!game.lGameOver){
-           game.Atualizar();
-           game.Desenhar();
-           game.GeraInimigos();
-           game.ProcessamentoComandos();
-           game.VerificaColisoes();
-           game.DesabilitaObjetos(false);
+    
+        if (!game.lIniciarJogo){
+           game.TelaInicial();
         } else {
-           game.TelaGameOver();
+           if (!game.lGameOver){
+              game.Atualizar();
+              game.Desenhar();
+              game.GeraInimigos();
+              game.ProcessamentoComandos();
+              game.VerificaColisoes();
+              game.DesabilitaObjetos(false);
+            } else {
+              game.TelaGameOver();
+            }
         }
+
         EndDrawing();
     }
     CloseWindow();
