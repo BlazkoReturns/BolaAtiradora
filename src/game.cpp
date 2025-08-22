@@ -129,10 +129,15 @@ void Game::TelaGameOver(){
 
 void Game::TelaInicial(){
    
-   DrawText("Bola Atiradora",nLadoTela/2-MeasureText("Bola Atiradora",80)/2,nLadoTela/10,80,BLACK);
+   /*Botões*/
    DrawRectangleLines((nLadoTela-600)/4, nLadoTela/2 + 200, 200, 100,BLACK);
    DrawRectangleLines(200 + (nLadoTela-600)/2, nLadoTela/2 + 200, 200, 100,BLACK);
    DrawRectangleLines(400 + 3*(nLadoTela-600)/4, nLadoTela/2 + 200, 200, 100,BLACK);
+   
+   /*Textos dos Botões*/
+
+   /*Textos*/
+   DrawText("Bola Atiradora",nLadoTela/2-MeasureText("Bola Atiradora",80)/2,nLadoTela/10,80,BLACK);
    DrawText("Jogo desenvolvido por Blazko",nLadoTela/2-MeasureText("Jogo desenvolvido por Blazko",20)/2,nLadoTela-20,20,BLACK);
 
    ball.Draw();
