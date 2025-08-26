@@ -142,12 +142,12 @@ void Game::TelaInicial(){
    Color cCorBotaoMacaco = BLACK;
    Color cCorBotaoPolvo = BLACK;
 
-   int nFonteTextoBotao = 40;
+   int nFonteTextoBotao = 30;
    int nFonteTitulo = 80;
    int nFonteAutor = 20; 
-   int nOffSetHumano = (nLarguraBotao-MeasureText("Humano",40))/2;
-   int nOffSetMacaco = (nLarguraBotao-MeasureText("Macaco",40))/2;
-   int nOffSetPolvo = (nLarguraBotao-MeasureText("Polvo",40))/2;
+   int nOffSetHumano = (nLarguraBotao-MeasureText("Humano",nFonteTextoBotao))/2;
+   int nOffSetMacaco = (nLarguraBotao-MeasureText("Macaco",nFonteTextoBotao))/2;
+   int nOffSetPolvo = (nLarguraBotao-MeasureText("Polvo",nFonteTextoBotao))/2;
    
    /*Colisão entre mouse e botões*/
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXHumano,nPosicaoY,nLarguraBotao,nAlturaBotao})) {
