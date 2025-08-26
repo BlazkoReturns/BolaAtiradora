@@ -6,7 +6,7 @@
 18/08/2025
 - verificar todas as variáveis de dificuldade e não deixar nenhuma valor setado no método em si, mas na inicialização
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+25/05/2025
 - certificar q quando uma colisão acontece as classes dos objetos estão de fato sumindo
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------
 

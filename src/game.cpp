@@ -128,17 +128,53 @@ void Game::TelaGameOver(){
 }
 
 void Game::TelaInicial(){
+
+   float nLarguraBotao = 200;
+   float nAlturaBotao = 100;
+   float nOffSet = (nLadoTela - 3*nLarguraBotao)/4; /*Espaço entre as bordas-botões e botões-botões*/
+
+   float nPosicaoY = nLadoTela/2 + 200;
+   float nPosicaoXHumano = nOffSet; /*Um offset*/
+   float nPosicaoXMacaco = 2*nOffSet + nLarguraBotao; /*dois offsets e a largura de um botão*/
+   float nPosicaoXPolvo = 3*nOffSet + 2*nLarguraBotao; /*3 offsets e a largura de 2 botões*/
    
+   Color cCorBotaoHumano = BLACK;
+   Color cCorBotaoMacaco = BLACK;
+   Color cCorBotaoPolvo = BLACK;
+
+   int nFonteTextoBotao = 40;
+   int nFonteTitulo = 80;
+   int nFonteAutor = 20; 
+   int nOffSetHumano = (nLarguraBotao-MeasureText("Humano",40))/2;
+   int nOffSetMacaco = (nLarguraBotao-MeasureText("Macaco",40))/2;
+   int nOffSetPolvo = (nLarguraBotao-MeasureText("Polvo",40))/2;
+   
+   /*Colisão entre mouse e botões*/
+   if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXHumano,nPosicaoY,nLarguraBotao,nAlturaBotao})) {
+            cCorBotaoHumano = RED;// Estado: MOUSE SOBRE (HOVER)
+   }
+
+   if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXMacaco, nPosicaoY, nLarguraBotao, nAlturaBotao})) {
+            cCorBotaoMacaco = RED;// Estado: MOUSE SOBRE (HOVER)
+   }
+
+   if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXPolvo, nPosicaoY, nLarguraBotao, nAlturaBotao})) {
+            cCorBotaoPolvo = RED;// Estado: MOUSE SOBRE (HOVER)
+   }
+       
    /*Botões*/
-   DrawRectangleLines((nLadoTela-600)/4, nLadoTela/2 + 200, 200, 100,BLACK);
-   DrawRectangleLines(200 + (nLadoTela-600)/2, nLadoTela/2 + 200, 200, 100,BLACK);
-   DrawRectangleLines(400 + 3*(nLadoTela-600)/4, nLadoTela/2 + 200, 200, 100,BLACK);
+   DrawRectangleLines(nPosicaoXHumano, nPosicaoY, nLarguraBotao, nAlturaBotao,cCorBotaoHumano); 
+   DrawRectangleLines(nPosicaoXMacaco, nPosicaoY, nLarguraBotao, nAlturaBotao,cCorBotaoMacaco); 
+   DrawRectangleLines(nPosicaoXPolvo, nPosicaoY, nLarguraBotao, nAlturaBotao,cCorBotaoPolvo); 
    
    /*Textos dos Botões*/
+   DrawText("Humano",nPosicaoXHumano + nOffSetHumano,nPosicaoY + nFonteTextoBotao ,nFonteTextoBotao,BLACK);
+   DrawText("Macaco",nPosicaoXMacaco + nOffSetMacaco,nPosicaoY  + nFonteTextoBotao,nFonteTextoBotao,BLACK);
+   DrawText("Polvo",nPosicaoXPolvo+ nOffSetPolvo,nPosicaoY  + nFonteTextoBotao,nFonteTextoBotao,BLACK);
 
    /*Textos*/
-   DrawText("Bola Atiradora",nLadoTela/2-MeasureText("Bola Atiradora",80)/2,nLadoTela/10,80,BLACK);
-   DrawText("Jogo desenvolvido por Blazko",nLadoTela/2-MeasureText("Jogo desenvolvido por Blazko",20)/2,nLadoTela-20,20,BLACK);
+   DrawText("Bola Atiradora",nLadoTela/2-MeasureText("Bola Atiradora",nFonteTitulo)/2,nLadoTela/10,nFonteTitulo,BLACK);
+   DrawText("Jogo desenvolvido por Blazko",nLadoTela/2-MeasureText("Jogo desenvolvido por Blazko",nFonteAutor)/2,nLadoTela-20,nFonteAutor,BLACK);
 
    ball.Draw();
 }
