@@ -152,14 +152,31 @@ void Game::TelaInicial(){
    /*Colisão entre mouse e botões*/
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXHumano,nPosicaoY,nLarguraBotao,nAlturaBotao})) {
             cCorBotaoHumano = RED;// Estado: MOUSE SOBRE (HOVER)
+            DrawTriangleLines({(nLadoTela/2)+nRaioBola+10,nLadoTela/2+10},{(nLadoTela/2)+nRaioBola+10,(nLadoTela/2)-10},{(nLadoTela/2)+nRaioBola+30,nLadoTela/2},BLACK);
+            DrawTriangleLines({(nLadoTela/2)-nRaioBola-10,nLadoTela/2+10},{(nLadoTela/2)-nRaioBola-10,(nLadoTela/2)-10},{(nLadoTela/2)-nRaioBola-30,nLadoTela/2},BLACK);
    }
 
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXMacaco, nPosicaoY, nLarguraBotao, nAlturaBotao})) {
             cCorBotaoMacaco = RED;// Estado: MOUSE SOBRE (HOVER)
+            DrawTriangleLines({(nLadoTela/2)+nRaioBola+10,nLadoTela/2+10},{(nLadoTela/2)+nRaioBola+10,(nLadoTela/2)-10},{(nLadoTela/2)+nRaioBola+30,nLadoTela/2},BLACK);
+            DrawTriangleLines({(nLadoTela/2)-nRaioBola-10,nLadoTela/2+10},{(nLadoTela/2)-nRaioBola-10,(nLadoTela/2)-10},{(nLadoTela/2)-nRaioBola-30,nLadoTela/2},BLACK);
+            DrawTriangleLines({(nLadoTela/2)-10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2)+10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2) ,(nLadoTela/2)-nRaioBola-30},BLACK);
+            DrawTriangleLines({(nLadoTela/2)+10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2)-10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2) ,(nLadoTela/2)+nRaioBola+30},BLACK);
    }
 
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXPolvo, nPosicaoY, nLarguraBotao, nAlturaBotao})) {
             cCorBotaoPolvo = RED;// Estado: MOUSE SOBRE (HOVER)
+
+            DrawTriangleLines({(nLadoTela/2)+nRaioBola+10,nLadoTela/2+10},{(nLadoTela/2)+nRaioBola+10,(nLadoTela/2)-10},{(nLadoTela/2)+nRaioBola+30,nLadoTela/2},BLACK);
+            DrawTriangleLines({(nLadoTela/2)-nRaioBola-10,nLadoTela/2+10},{(nLadoTela/2)-nRaioBola-10,(nLadoTela/2)-10},{(nLadoTela/2)-nRaioBola-30,nLadoTela/2},BLACK); 
+            DrawTriangleLines({(nLadoTela/2)-10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2)+10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2) ,(nLadoTela/2)-nRaioBola-30},BLACK);
+            DrawTriangleLines({(nLadoTela/2)+10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2)-10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2) ,(nLadoTela/2)+nRaioBola+30},BLACK);
+            
+            DrawTriangleLines({(nLadoTela/2)+nRaioBola-10,(nLadoTela/2)-nRaioBola},{(nLadoTela/2)+nRaioBola,(nLadoTela/2)-nRaioBola+10},{(nLadoTela/2) + nRaioBola,(nLadoTela/2)-nRaioBola},BLACK);
+            DrawTriangleLines({(nLadoTela/2)+nRaioBola-10,(nLadoTela/2)+nRaioBola},{(nLadoTela/2)+nRaioBola,(nLadoTela/2)+nRaioBola-10},{(nLadoTela/2) + nRaioBola,(nLadoTela/2)+nRaioBola},BLACK);
+            DrawTriangleLines({(nLadoTela/2)-nRaioBola+10,(nLadoTela/2)+nRaioBola},{(nLadoTela/2)-nRaioBola,(nLadoTela/2)+nRaioBola-10},{(nLadoTela/2) - nRaioBola,(nLadoTela/2)+nRaioBola},BLACK);
+            DrawTriangleLines({(nLadoTela/2)-nRaioBola+10,(nLadoTela/2)-nRaioBola},{(nLadoTela/2)-nRaioBola,(nLadoTela/2)-nRaioBola+10},{(nLadoTela/2) - nRaioBola,(nLadoTela/2)-nRaioBola},BLACK);
+
    }
        
    /*Botões*/
