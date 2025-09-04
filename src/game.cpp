@@ -8,12 +8,6 @@ Game::Game(){
    lGameOver = false;
 
    /*Variáveis de tamanhos dos objetos*/
-   nRaioBola = 80;
-   nRaioInimigo = 10;
-   nRaioTiro = 5;
-   ball.nRaioBola = nRaioBola;
-   ball.nLadoTela = nLadoTela;
-
    InicializaVariaveis();
 
 }
@@ -61,6 +55,25 @@ void Game::Desenhar(){
    DrawText(TextFormat("Dificuldade: %08i", nNivelDificuldade), 10, 30, 20, BLACK);
 }
 
+void Game::DesenharSetasDiagonais(){
+   DrawTriangleLines({(nLadoTela/2)+nRaioBola-10,(nLadoTela/2)-nRaioBola},{(nLadoTela/2)+nRaioBola,(nLadoTela/2)-nRaioBola+10},{(nLadoTela/2) + nRaioBola,(nLadoTela/2)-nRaioBola},BLACK);
+   DrawTriangleLines({(nLadoTela/2)+nRaioBola-10,(nLadoTela/2)+nRaioBola},{(nLadoTela/2)+nRaioBola,(nLadoTela/2)+nRaioBola-10},{(nLadoTela/2) + nRaioBola,(nLadoTela/2)+nRaioBola},BLACK);
+   DrawTriangleLines({(nLadoTela/2)-nRaioBola+10,(nLadoTela/2)+nRaioBola},{(nLadoTela/2)-nRaioBola,(nLadoTela/2)+nRaioBola-10},{(nLadoTela/2) - nRaioBola,(nLadoTela/2)+nRaioBola},BLACK);
+   DrawTriangleLines({(nLadoTela/2)-nRaioBola+10,(nLadoTela/2)-nRaioBola},{(nLadoTela/2)-nRaioBola,(nLadoTela/2)-nRaioBola+10},{(nLadoTela/2) - nRaioBola,(nLadoTela/2)-nRaioBola},BLACK);
+}
+
+void Game::DesenharSetasHorizontais(){
+   DrawTriangleLines({(nLadoTela/2)+nRaioBola+10,nLadoTela/2+10},{(nLadoTela/2)+nRaioBola+10,(nLadoTela/2)-10},{(nLadoTela/2)+nRaioBola+30,nLadoTela/2},BLACK);
+   DrawTriangleLines({(nLadoTela/2)-nRaioBola-10,nLadoTela/2+10},{(nLadoTela/2)-nRaioBola-10,(nLadoTela/2)-10},{(nLadoTela/2)-nRaioBola-30,nLadoTela/2},BLACK);
+}
+
+void Game::DesenharSetasVerticais(){
+   DrawTriangleLines({(nLadoTela/2)-10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2)+10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2) ,(nLadoTela/2)-nRaioBola-30},BLACK);
+   DrawTriangleLines({(nLadoTela/2)+10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2)-10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2) ,(nLadoTela/2)+nRaioBola+30},BLACK);
+}
+
+
+
 void Game::GeraInimigos(){
    double nTempoAgora = GetTime();
 
@@ -81,6 +94,12 @@ void Game::GeraInimigos(){
 void Game::InicializaVariaveis(){
 
    lGameOver = false;
+   
+   nRaioBola = 80;
+   nRaioInimigo = 10;
+   nRaioTiro = 5;
+   ball.nRaioBola = nRaioBola;
+   ball.nLadoTela = nLadoTela;
 
    /*Variáveis referentes a textos de tela*/
    nPontuacao = 0;
@@ -151,32 +170,24 @@ void Game::TelaInicial(){
    
    /*Colisão entre mouse e botões*/
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXHumano,nPosicaoY,nLarguraBotao,nAlturaBotao})) {
-            cCorBotaoHumano = RED;// Estado: MOUSE SOBRE (HOVER)
-            DrawTriangleLines({(nLadoTela/2)+nRaioBola+10,nLadoTela/2+10},{(nLadoTela/2)+nRaioBola+10,(nLadoTela/2)-10},{(nLadoTela/2)+nRaioBola+30,nLadoTela/2},BLACK);
-            DrawTriangleLines({(nLadoTela/2)-nRaioBola-10,nLadoTela/2+10},{(nLadoTela/2)-nRaioBola-10,(nLadoTela/2)-10},{(nLadoTela/2)-nRaioBola-30,nLadoTela/2},BLACK);
+      cCorBotaoHumano = RED;// Estado: MOUSE SOBRE (HOVER)
+      DesenharSetasHorizontais();      
    }
 
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXMacaco, nPosicaoY, nLarguraBotao, nAlturaBotao})) {
-            cCorBotaoMacaco = RED;// Estado: MOUSE SOBRE (HOVER)
-            DrawTriangleLines({(nLadoTela/2)+nRaioBola+10,nLadoTela/2+10},{(nLadoTela/2)+nRaioBola+10,(nLadoTela/2)-10},{(nLadoTela/2)+nRaioBola+30,nLadoTela/2},BLACK);
-            DrawTriangleLines({(nLadoTela/2)-nRaioBola-10,nLadoTela/2+10},{(nLadoTela/2)-nRaioBola-10,(nLadoTela/2)-10},{(nLadoTela/2)-nRaioBola-30,nLadoTela/2},BLACK);
-            DrawTriangleLines({(nLadoTela/2)-10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2)+10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2) ,(nLadoTela/2)-nRaioBola-30},BLACK);
-            DrawTriangleLines({(nLadoTela/2)+10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2)-10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2) ,(nLadoTela/2)+nRaioBola+30},BLACK);
+      cCorBotaoMacaco = RED;// Estado: MOUSE SOBRE (HOVER)
+      DesenharSetasHorizontais();
+      DesenharSetasVerticais();
+      if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+         lIniciarJogo = true;   
+      }        
    }
 
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXPolvo, nPosicaoY, nLarguraBotao, nAlturaBotao})) {
-            cCorBotaoPolvo = RED;// Estado: MOUSE SOBRE (HOVER)
-
-            DrawTriangleLines({(nLadoTela/2)+nRaioBola+10,nLadoTela/2+10},{(nLadoTela/2)+nRaioBola+10,(nLadoTela/2)-10},{(nLadoTela/2)+nRaioBola+30,nLadoTela/2},BLACK);
-            DrawTriangleLines({(nLadoTela/2)-nRaioBola-10,nLadoTela/2+10},{(nLadoTela/2)-nRaioBola-10,(nLadoTela/2)-10},{(nLadoTela/2)-nRaioBola-30,nLadoTela/2},BLACK); 
-            DrawTriangleLines({(nLadoTela/2)-10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2)+10,(nLadoTela/2)-nRaioBola-10},{(nLadoTela/2) ,(nLadoTela/2)-nRaioBola-30},BLACK);
-            DrawTriangleLines({(nLadoTela/2)+10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2)-10,(nLadoTela/2)+nRaioBola+10},{(nLadoTela/2) ,(nLadoTela/2)+nRaioBola+30},BLACK);
-            
-            DrawTriangleLines({(nLadoTela/2)+nRaioBola-10,(nLadoTela/2)-nRaioBola},{(nLadoTela/2)+nRaioBola,(nLadoTela/2)-nRaioBola+10},{(nLadoTela/2) + nRaioBola,(nLadoTela/2)-nRaioBola},BLACK);
-            DrawTriangleLines({(nLadoTela/2)+nRaioBola-10,(nLadoTela/2)+nRaioBola},{(nLadoTela/2)+nRaioBola,(nLadoTela/2)+nRaioBola-10},{(nLadoTela/2) + nRaioBola,(nLadoTela/2)+nRaioBola},BLACK);
-            DrawTriangleLines({(nLadoTela/2)-nRaioBola+10,(nLadoTela/2)+nRaioBola},{(nLadoTela/2)-nRaioBola,(nLadoTela/2)+nRaioBola-10},{(nLadoTela/2) - nRaioBola,(nLadoTela/2)+nRaioBola},BLACK);
-            DrawTriangleLines({(nLadoTela/2)-nRaioBola+10,(nLadoTela/2)-nRaioBola},{(nLadoTela/2)-nRaioBola,(nLadoTela/2)-nRaioBola+10},{(nLadoTela/2) - nRaioBola,(nLadoTela/2)-nRaioBola},BLACK);
-
+      cCorBotaoPolvo = RED;// Estado: MOUSE SOBRE (HOVER)
+      DesenharSetasHorizontais();
+      DesenharSetasVerticais();
+      DesenharSetasDiagonais();
    }
        
    /*Botões*/
@@ -198,7 +209,7 @@ void Game::TelaInicial(){
 
 void Game::VerificaColisoes(){
    for (auto& inimigo: inimigos){
-      if (CheckCollisionCircles({nLadoTela/2,nLadoTela/2},50,{inimigo.vPosicaoInimigo.x,inimigo.vPosicaoInimigo.y},inimigo.nRaioInimigo)){
+      if (CheckCollisionCircles({nLadoTela/2,nLadoTela/2},nRaioBola,{inimigo.vPosicaoInimigo.x,inimigo.vPosicaoInimigo.y},inimigo.nRaioInimigo)){
             lGameOver = true;
             break;   
       }           
