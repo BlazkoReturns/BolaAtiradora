@@ -12,6 +12,9 @@ class Game{
        void Atualizar();
        void DesabilitaObjetos(bool lNovoJogo);
        void Desenhar();
+       void DesenharSetasHorizontais();
+       void DesenharSetasVerticais();
+       void DesenharSetasDiagonais();
        void GeraInimigos();
        void InicializaVariaveis();
        void ProcessamentoComandos();
