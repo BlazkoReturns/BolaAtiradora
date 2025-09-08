@@ -85,7 +85,7 @@ void Game::GeraInimigos(){
    }
 
    if(nTempoAgora - nTempoUltimoInimigo > nIntervaloGeraInimigo) {
-      inimigos.push_back(Inimigos(GetRandomValue(1,4),nVelocidadeInicialInimigo,nMultiplicadorVelocidade,nRaioInimigo,nLadoTela)); 
+      inimigos.push_back(Inimigos(GetRandomValue(1,nModoJogo),nVelocidadeInicialInimigo,nMultiplicadorVelocidade,nRaioInimigo,nLadoTela)); 
       nTempoUltimoInimigo = GetTime();
    }
 
@@ -123,15 +123,23 @@ void Game::ProcessamentoComandos(){
 
    int nDirecaoTiro = 0;
 
-   if (IsKeyPressed(KEY_UP)) {
+   if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_KP_8)) {
       nDirecaoTiro = 1;
-   }else if (IsKeyPressed(KEY_DOWN)) {
+   }else if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_KP_2)) {
       nDirecaoTiro = 2;
-   }else if (IsKeyPressed(KEY_LEFT)){
+   }else if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_KP_4)){
       nDirecaoTiro = 3;
-   } else if (IsKeyPressed(KEY_RIGHT)){
+   } else if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_KP_6)){
       nDirecaoTiro = 4;
-   }
+   } else if (IsKeyPressed(KEY_KP_7)){ /*Esquerda superior*/
+      nDirecaoTiro = 5;
+   } else if (IsKeyPressed(KEY_KP_9)){ /*Direita superior*/
+      nDirecaoTiro = 6;
+   } else if (IsKeyPressed(KEY_KP_1)){ /*Esquerda inferior*/
+      nDirecaoTiro = 7;
+   } else if (IsKeyPressed(KEY_KP_3)){ /*Direita inferior*/
+      nDirecaoTiro = 8;
+   }               
    tiros.push_back(Tiro(nDirecaoTiro,nLadoTela,nRaioTiro,nVelocidadeTiro,nRaioBola));
 }
 
@@ -171,7 +179,11 @@ void Game::TelaInicial(){
    /*Colisão entre mouse e botões*/
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXHumano,nPosicaoY,nLarguraBotao,nAlturaBotao})) {
       cCorBotaoHumano = RED;// Estado: MOUSE SOBRE (HOVER)
-      DesenharSetasHorizontais();      
+      DesenharSetasHorizontais();
+      if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+         lIniciarJogo = true;
+         nModoJogo = 2;   
+      }      
    }
 
    if (CheckCollisionPointRec(GetMousePosition(), {nPosicaoXMacaco, nPosicaoY, nLarguraBotao, nAlturaBotao})) {
@@ -179,7 +191,8 @@ void Game::TelaInicial(){
       DesenharSetasHorizontais();
       DesenharSetasVerticais();
       if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
-         lIniciarJogo = true;   
+         lIniciarJogo = true;
+         nModoJogo = 4;   
       }        
    }
 
@@ -188,6 +201,10 @@ void Game::TelaInicial(){
       DesenharSetasHorizontais();
       DesenharSetasVerticais();
       DesenharSetasDiagonais();
+      if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+         lIniciarJogo = true;
+         nModoJogo = 8;   
+      }
    }
        
    /*Botões*/

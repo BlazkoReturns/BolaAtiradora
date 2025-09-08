@@ -9,4 +9,4 @@
 25/05/2025
 - certificar q quando uma colisão acontece as classes dos objetos estão de fato sumindo
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+Colocar opção de voltar a tela inicial e escolher outro modo de jogo

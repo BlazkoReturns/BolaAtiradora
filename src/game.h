@@ -33,6 +33,7 @@ class Game{
        
        Ball ball;
        
+       int nModoJogo = 2;
        int nMultiplicadorVelocidade;
        int nNivelDificuldade;
        int nPontuacao;

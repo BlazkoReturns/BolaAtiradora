@@ -28,7 +28,12 @@ Tiro::Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnVelocidadeTiro,
       vVelocidadeTiro.y = 0;
       vPosicaoTiro.x = (nLadoTela/2)+(nRaioTiro/2)+xnRaioBola;
       vPosicaoTiro.y = (nLadoTela/2);
-   };  
+   } else if (xnDirecao == 5){/*Esquerda Superior*/
+      vVelocidadeTiro.x = -xnVelocidadeTiro;
+      vVelocidadeTiro.y = -xnVelocidadeTiro;
+      vPosicaoTiro.x = (nLadoTela/2)+(nRaioTiro/2)+xnRaioBola;
+      vPosicaoTiro.y = (nLadoTela/2);
+   }  
 }
 
 void Tiro::Atualizar(){
