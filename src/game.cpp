@@ -1,4 +1,5 @@
 #include "game.h"
+#include <iostream>
 
 Game::Game()
 {
@@ -53,6 +54,7 @@ void Game::DesabilitaObjetos(bool lNovoJogo)
 
 void Game::Desenhar()
 {
+
    for (auto &tiro : tiros)
    {
       tiro.Desenhar();
@@ -66,7 +68,10 @@ void Game::Desenhar()
    ball.Draw();
 
    DrawText(TextFormat("Score: %08i", nPontuacao), 10, 10, 20, BLACK);
-   DrawText(TextFormat("Dificuldade: %08i", nNivelDificuldade), 10, 30, 20, BLACK);
+   DrawText(TextFormat("Dificuldade: %02i", nNivelDificuldade), 10, 30, 20, BLACK);
+   DrawText("Modo: ", 10, 50, 20, BLACK);
+   DrawText((nModoJogo == 2 ? "Humano" : nModoJogo == 4 ? "Macaco" : "Polvo"), 70, 50, 20, BLACK);
+   
 }
 
 void Game::DesenharSetasDiagonais()
@@ -92,6 +97,8 @@ void Game::DesenharSetasVerticais()
 void Game::GeraInimigos()
 {
    double nTempoAgora = GetTime();
+
+   std::cout << nTempoAgora - nTempoAumentaVelocidade << std::endl;
 
    if (nTempoAgora - nTempoAumentaVelocidade > nIntervaloAumentaDificuldade)
    {
@@ -124,8 +131,9 @@ void Game::InicializaVariaveis()
    nNivelDificuldade = 1;
 
    /*Variáveis relacionadas a dificuldade do jogo*/
-   nIntervaloAumentaDificuldade = 5;
-   nIntervaloGeraInimigo = 1;
+   nTempoAumentaVelocidade = 0.00;
+   nIntervaloAumentaDificuldade = 10.00;
+   nIntervaloGeraInimigo = 1.00;
 
    nFatorAumentoMultiplicadorVelocidade = 0.1;
    nFatorIntervaloGeraInimigo = 0.05;
@@ -134,7 +142,7 @@ void Game::InicializaVariaveis()
    nVelocidadeTiro = 15;
 
    nMultiplicadorVelocidade = 1;
-   nTempoUltimoInimigo = 0;
+   nTempoUltimoInimigo = 0.00;
 }
 
 void Game::ProcessamentoComandos()
@@ -142,25 +150,30 @@ void Game::ProcessamentoComandos()
 
    int nDirecaoTiro = 0;
 
+   if (IsKeyPressed(KEY_BACKSPACE)){
+      lIniciarJogo = false;
+      DesabilitaObjetos(true);
+   }
+
    if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_KP_4))
-   {
+   { /*Cima*/
       nDirecaoTiro = 3;
    }
 
    if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_KP_6))
-   {
+   { /*Baixo*/
       nDirecaoTiro = 4;
    }
 
    if (nModoJogo == 4 || nModoJogo == 8)
    {
       if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_KP_8))
-      {
+      { /*Esquerda*/
          nDirecaoTiro = 1;
       }
 
       if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_KP_2))
-      {
+      { /*Direita*/
          nDirecaoTiro = 2;
       }
    }
