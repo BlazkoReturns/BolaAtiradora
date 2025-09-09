@@ -31,9 +31,25 @@ Tiro::Tiro(int xnDirecao, int xnLadoTela, int  xnRaioTiro, int xnVelocidadeTiro,
    } else if (xnDirecao == 5){/*Esquerda Superior*/
       vVelocidadeTiro.x = -xnVelocidadeTiro;
       vVelocidadeTiro.y = -xnVelocidadeTiro;
-      vPosicaoTiro.x = (nLadoTela/2)+(nRaioTiro/2)+xnRaioBola;
-      vPosicaoTiro.y = (nLadoTela/2);
-   }  
+      vPosicaoTiro.x = (nLadoTela/2)-(0.7071*xnRaioBola);
+      vPosicaoTiro.y = (nLadoTela/2)-(0.7071*xnRaioBola);
+   } else if (xnDirecao == 6){/*Esquerda Superior*/
+      vVelocidadeTiro.x = xnVelocidadeTiro;
+      vVelocidadeTiro.y = -xnVelocidadeTiro;
+      vPosicaoTiro.x = (nLadoTela/2)+(0.7071*xnRaioBola);
+      vPosicaoTiro.y = (nLadoTela/2)-(0.7071*xnRaioBola);
+   }else if (xnDirecao == 7){/*Esquerda Inferior*/
+      vVelocidadeTiro.x = -xnVelocidadeTiro;
+      vVelocidadeTiro.y = xnVelocidadeTiro;
+      vPosicaoTiro.x = (nLadoTela/2)-(0.7071*xnRaioBola);
+      vPosicaoTiro.y = (nLadoTela/2)+(0.7071*xnRaioBola);
+   } else if (xnDirecao == 8){/*Direita Inferior*/
+      vVelocidadeTiro.x = xnVelocidadeTiro;
+      vVelocidadeTiro.y = xnVelocidadeTiro;
+      vPosicaoTiro.x = (nLadoTela/2)+(0.7071*xnRaioBola);
+      vPosicaoTiro.y = (nLadoTela/2)+(0.7071*xnRaioBola);
+   }
+
 }
 
 void Tiro::Atualizar(){
