@@ -1,10 +1,12 @@
 #include "game.h"
-#include <iostream>
+#include <string>
+#include <stdlib.h>
 
 Game::Game()
 {
 
    InitWindow(nLadoTela, nLadoTela, "Bola Atiradora 0.1");
+   SetExitKey(KEY_NULL);
    SetTargetFPS(60);
 
    lGameOver = false;
@@ -23,6 +25,24 @@ void Game::Atualizar()
    {
       inimigo.Atualizar();
    }
+}
+
+int Game::CarregarRecorde()
+{
+   int Recorde = 0;
+
+    if (FileExists("highscore.txt"))
+    {
+        char *scoreText = LoadFileText("highscore.txt");
+        if (scoreText != NULL)
+        {
+            Recorde = atoi(scoreText);
+            UnloadFileText(scoreText); // Libera a memória do texto carregado
+            TraceLog(LOG_INFO, "High score carregado com sucesso: %i", Recorde);
+        }
+    }
+    
+    return Recorde;
 }
 
 void Game::DesabilitaObjetos(bool lNovoJogo)
@@ -71,7 +91,8 @@ void Game::Desenhar()
    DrawText(TextFormat("Dificuldade: %02i", nNivelDificuldade), 10, 30, 20, BLACK);
    DrawText("Modo: ", 10, 50, 20, BLACK);
    DrawText((nModoJogo == 2 ? "Humano" : nModoJogo == 4 ? "Macaco" : "Polvo"), 70, 50, 20, BLACK);
-   
+   DrawText(TextFormat("Top Score: %08i", nRecorde), 10, 70, 20, BLACK);
+   DrawText(TextFormat("Esc->Menu"), 10, nLadoTela-20, 20, BLACK);
 }
 
 void Game::DesenharSetasDiagonais()
@@ -98,12 +119,10 @@ void Game::GeraInimigos()
 {
    double nTempoAgora = GetTime();
 
-   std::cout << nTempoAgora - nTempoAumentaVelocidade << std::endl;
-
-   if (nTempoAgora - nTempoAumentaVelocidade > nIntervaloAumentaDificuldade)
+   if ((nTempoAgora - nTempoAumentaVelocidade > nIntervaloAumentaDificuldade) && nNivelDificuldade <=19)
    {
       nIntervaloGeraInimigo -= nFatorIntervaloGeraInimigo;
-      nMultiplicadorVelocidade += nFatorAumentoMultiplicadorVelocidade;
+      //nMultiplicadorVelocidade += nFatorAumentoMultiplicadorVelocidade;
       nNivelDificuldade++;
       nTempoAumentaVelocidade = GetTime();
    }
@@ -128,21 +147,23 @@ void Game::InicializaVariaveis()
 
    /*Variáveis referentes a textos de tela*/
    nPontuacao = 0;
+   nRecorde = CarregarRecorde();
    nNivelDificuldade = 1;
 
    /*Variáveis relacionadas a dificuldade do jogo*/
-   nTempoAumentaVelocidade = 0.00;
-   nIntervaloAumentaDificuldade = 10.00;
-   nIntervaloGeraInimigo = 1.00;
+   nTempoAumentaVelocidade = GetTime();
+   nTempoUltimoInimigo = GetTime();
+   nIntervaloAumentaDificuldade = 6.00;
+   nIntervaloGeraInimigo = 0.80;
 
    nFatorAumentoMultiplicadorVelocidade = 0.1;
-   nFatorIntervaloGeraInimigo = 0.05;
+   nFatorIntervaloGeraInimigo = 0.035;
 
    nVelocidadeInicialInimigo = 5;
    nVelocidadeTiro = 15;
 
    nMultiplicadorVelocidade = 1;
-   nTempoUltimoInimigo = 0.00;
+   
 }
 
 void Game::ProcessamentoComandos()
@@ -150,9 +171,10 @@ void Game::ProcessamentoComandos()
 
    int nDirecaoTiro = 0;
 
-   if (IsKeyPressed(KEY_BACKSPACE)){
+   if (IsKeyPressed(KEY_ESCAPE)){
       lIniciarJogo = false;
       DesabilitaObjetos(true);
+      InicializaVariaveis();
    }
 
    if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_KP_4))
@@ -200,7 +222,17 @@ void Game::ProcessamentoComandos()
          nDirecaoTiro = 8;
       }
    }
-   tiros.push_back(Tiro(nDirecaoTiro, nLadoTela, nRaioTiro, nVelocidadeTiro, nRaioBola));
+   if (nDirecaoTiro != 0)
+   {
+      tiros.push_back(Tiro(nDirecaoTiro, nLadoTela, nRaioTiro, nVelocidadeTiro, nRaioBola));
+   }
+   
+}
+
+void Game::SalvarRecorde(int score)
+{
+    std::string scoreText = std::to_string(score);
+    SaveFileText("highscore.txt", (char*)scoreText.c_str());
 }
 
 void Game::TelaGameOver()
@@ -300,17 +332,26 @@ void Game::VerificaColisoes()
       if (CheckCollisionCircles({nLadoTela / 2, nLadoTela / 2}, nRaioBola, {inimigo.vPosicaoInimigo.x, inimigo.vPosicaoInimigo.y}, inimigo.nRaioInimigo))
       {
          lGameOver = true;
+         SalvarRecorde(nPontuacao);
          break;
       }
 
       for (auto &tiro : tiros)
       {
-         if (CheckCollisionCircles({tiro.vPosicaoTiro.x, tiro.vPosicaoTiro.y}, nRaioTiro, {inimigo.vPosicaoInimigo.x, inimigo.vPosicaoInimigo.y}, nRaioInimigo))
+         if (CheckCollisionCircles({tiro.vPosicaoTiro.x, tiro.vPosicaoTiro.y}, nRaioTiro, {inimigo.vPosicaoInimigo.x, inimigo.vPosicaoInimigo.y}, nRaioInimigo)) 
          {
             inimigo.lDesenhar = false;
             tiro.lDesenhar = false;
-            nPontuacao += nNivelDificuldade;
+            nPontuacao += (nNivelDificuldade+nModoJogo);
          }
+
+         if (tiro.vPosicaoTiro.x >= nLadoTela || tiro.vPosicaoTiro.x <= 0 || tiro.vPosicaoTiro.y >= nLadoTela || tiro.vPosicaoTiro.y <= 0)
+         {
+            lGameOver = true;
+            SalvarRecorde(nPontuacao);
+            break;
+         }
+
       }
    }
 }

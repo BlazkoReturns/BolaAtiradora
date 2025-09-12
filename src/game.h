@@ -10,6 +10,7 @@ class Game{
        Game();
        
        void Atualizar();
+       int CarregarRecorde();
        void DesabilitaObjetos(bool lNovoJogo);
        void Desenhar();
        void DesenharSetasHorizontais();
@@ -18,6 +19,7 @@ class Game{
        void GeraInimigos();
        void InicializaVariaveis();
        void ProcessamentoComandos();
+       void SalvarRecorde(int score);
        void TelaGameOver();
        void TelaInicial();
        void VerificaColisoes();
@@ -40,6 +42,7 @@ class Game{
        int nRaioInimigo;
        int nRaioBola;
        int nRaioTiro;
+       int nRecorde;
        int nVelocidadeInicialInimigo;
        int nVelocidadeTiro;
 
