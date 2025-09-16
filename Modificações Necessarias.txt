@@ -1,1 +1,0 @@
-Tem que separar os métodos de colisão entre os inimigos e tiros. Só verifica se um tiro saiu da tela se tem um inimigo na tela.

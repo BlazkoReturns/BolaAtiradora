@@ -26,18 +26,17 @@ int Game::CarregarRecorde()
 {
    int Recorde = 0;
 
-    if (FileExists("highscore.txt"))
-    {
-        char *scoreText = LoadFileText("highscore.txt");
-        if (scoreText != NULL)
-        {
-            Recorde = atoi(scoreText);
-            UnloadFileText(scoreText); // Libera a memória do texto carregado
-            TraceLog(LOG_INFO, "High score carregado com sucesso: %i", Recorde);
-        }
-    }
-    
-    return Recorde;
+   if (FileExists("highscore.txt"))
+   {
+      char *scoreText = LoadFileText("highscore.txt");
+      if (scoreText != NULL)
+      {
+         Recorde = atoi(scoreText);
+         UnloadFileText(scoreText);
+      }
+   }
+
+   return Recorde;
 }
 
 void Game::DesabilitaObjetos(bool lNovoJogo)
@@ -85,9 +84,11 @@ void Game::Desenhar()
    DrawText(TextFormat("Score: %08i", nPontuacao), 10, 10, 20, BLACK);
    DrawText(TextFormat("Dificuldade: %02i", nNivelDificuldade), 10, 30, 20, BLACK);
    DrawText("Modo: ", 10, 50, 20, BLACK);
-   DrawText((nModoJogo == 2 ? "Humano" : nModoJogo == 4 ? "Macaco" : "Polvo"), 70, 50, 20, BLACK);
+   DrawText((nModoJogo == 2 ? "Humano" : nModoJogo == 4 ? "Macaco"
+                                                        : "Polvo"),
+            70, 50, 20, BLACK);
    DrawText(TextFormat("Top Score: %08i", nRecorde), 10, 70, 20, BLACK);
-   DrawText(TextFormat("Esc->Menu"), 10, nLadoTela-20, 20, BLACK);
+   DrawText(TextFormat("Esc->Menu"), 10, nLadoTela - 20, 20, BLACK);
 }
 
 void Game::DesenharSetasDiagonais()
@@ -114,10 +115,10 @@ void Game::GeraInimigos()
 {
    double nTempoAgora = GetTime();
 
-   if ((nTempoAgora - nTempoAumentaVelocidade > nIntervaloAumentaDificuldade) && nNivelDificuldade <=19)
+   if ((nTempoAgora - nTempoAumentaVelocidade > nIntervaloAumentaDificuldade) && nNivelDificuldade <= 19)
    {
       nIntervaloGeraInimigo -= nFatorIntervaloGeraInimigo;
-      //nMultiplicadorVelocidade += nFatorAumentoMultiplicadorVelocidade;
+      // nMultiplicadorVelocidade += nFatorAumentoMultiplicadorVelocidade;
       nNivelDificuldade++;
       nTempoAumentaVelocidade = GetTime();
    }
@@ -158,7 +159,6 @@ void Game::InicializarVariaveis()
    nVelocidadeTiro = 15;
 
    nMultiplicadorVelocidade = 1;
-   
 }
 
 void Game::ProcessamentoComandos()
@@ -166,7 +166,8 @@ void Game::ProcessamentoComandos()
 
    int nDirecaoTiro = 0;
 
-   if (IsKeyPressed(KEY_ESCAPE)){
+   if (IsKeyPressed(KEY_ESCAPE))
+   {
       lIniciarJogo = false;
       DesabilitaObjetos(true);
       InicializarVariaveis();
@@ -221,13 +222,15 @@ void Game::ProcessamentoComandos()
    {
       tiros.push_back(Tiro(nDirecaoTiro, nLadoTela, nRaioTiro, nVelocidadeTiro, nRaioBola));
    }
-   
 }
 
 void Game::SalvarRecorde(int score)
 {
-    std::string scoreText = std::to_string(score);
-    SaveFileText("highscore.txt", (char*)scoreText.c_str());
+   if (score > nRecorde)
+   {
+      std::string scoreText = std::to_string(score);
+      SaveFileText("highscore.txt", (char *)scoreText.c_str());
+   }
 }
 
 void Game::TelaGameOver()
@@ -333,11 +336,11 @@ void Game::VerificaColisoes()
 
       for (auto &tiro : tiros)
       {
-         if (CheckCollisionCircles({tiro.vPosicaoTiro.x, tiro.vPosicaoTiro.y}, nRaioTiro, {inimigo.vPosicaoInimigo.x, inimigo.vPosicaoInimigo.y}, nRaioInimigo)) 
+         if (CheckCollisionCircles({tiro.vPosicaoTiro.x, tiro.vPosicaoTiro.y}, nRaioTiro, {inimigo.vPosicaoInimigo.x, inimigo.vPosicaoInimigo.y}, nRaioInimigo))
          {
             inimigo.lDesenhar = false;
             tiro.lDesenhar = false;
-            nPontuacao += (nNivelDificuldade+nModoJogo);
+            nPontuacao += (nNivelDificuldade + nModoJogo);
          }
 
          if (tiro.vPosicaoTiro.x >= nLadoTela || tiro.vPosicaoTiro.x <= 0 || tiro.vPosicaoTiro.y >= nLadoTela || tiro.vPosicaoTiro.y <= 0)
@@ -346,7 +349,19 @@ void Game::VerificaColisoes()
             SalvarRecorde(nPontuacao);
             break;
          }
+      }
+   }
+}
 
+void Game::VerificaTiroErrado()
+{
+   for (auto &tiro : tiros)
+   {
+      if (tiro.vPosicaoTiro.x >= nLadoTela || tiro.vPosicaoTiro.x <= 0 || tiro.vPosicaoTiro.y >= nLadoTela || tiro.vPosicaoTiro.y <= 0)
+      {
+         lGameOver = true;
+         SalvarRecorde(nPontuacao);
+         break;
       }
    }
 }

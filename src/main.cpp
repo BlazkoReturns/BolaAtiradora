@@ -20,6 +20,7 @@ int main()
               game.GeraInimigos();
               game.ProcessamentoComandos();
               game.VerificaColisoes();
+              game.VerificaTiroErrado();
               game.DesabilitaObjetos(false);
             } else {
               game.TelaGameOver();

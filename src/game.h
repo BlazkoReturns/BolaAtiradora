@@ -23,6 +23,7 @@ class Game{
        void TelaGameOver();
        void TelaInicial();
        void VerificaColisoes();
+       void VerificaTiroErrado();
                      
        bool lGameOver = false;
        bool lIniciarJogo = false;
