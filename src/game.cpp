@@ -4,15 +4,10 @@
 
 Game::Game()
 {
-
-   InitWindow(nLadoTela, nLadoTela, "Bola Atiradora 0.1");
+   InitWindow(nLadoTela, nLadoTela, "Bola Atiradora");
    SetExitKey(KEY_NULL);
    SetTargetFPS(60);
-
-   lGameOver = false;
-
-   /*Variáveis de tamanhos dos objetos*/
-   InicializaVariaveis();
+   InicializarVariaveis();
 }
 
 void Game::Atualizar()
@@ -134,7 +129,7 @@ void Game::GeraInimigos()
    }
 }
 
-void Game::InicializaVariaveis()
+void Game::InicializarVariaveis()
 {
 
    lGameOver = false;
@@ -174,7 +169,7 @@ void Game::ProcessamentoComandos()
    if (IsKeyPressed(KEY_ESCAPE)){
       lIniciarJogo = false;
       DesabilitaObjetos(true);
-      InicializaVariaveis();
+      InicializarVariaveis();
    }
 
    if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_KP_4))
@@ -244,7 +239,7 @@ void Game::TelaGameOver()
 
    if (GetKeyPressed() != 0)
    {
-      InicializaVariaveis();
+      InicializarVariaveis();
    }
 }
 

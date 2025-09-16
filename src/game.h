@@ -17,14 +17,14 @@ class Game{
        void DesenharSetasVerticais();
        void DesenharSetasDiagonais();
        void GeraInimigos();
-       void InicializaVariaveis();
+       void InicializarVariaveis();
        void ProcessamentoComandos();
        void SalvarRecorde(int score);
        void TelaGameOver();
        void TelaInicial();
        void VerificaColisoes();
                      
-       bool lGameOver;
+       bool lGameOver = false;
        bool lIniciarJogo = false;
        float nLadoTela = 900;
        
@@ -40,7 +40,7 @@ class Game{
        int nNivelDificuldade;
        int nPontuacao;
        int nRaioInimigo;
-       int nRaioBola;
+       int nRaioBola = 80;
        int nRaioTiro;
        int nRecorde;
        int nVelocidadeInicialInimigo;
