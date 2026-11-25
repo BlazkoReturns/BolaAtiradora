@@ -1,0 +1,11 @@
+# Arquivos compilados gerados automaticamente pelo Python
+__pycache__/
+*.py[cod]
+
+# Ambientes virtuais
+.venv/
+venv/
+
+# Configurações locais de editor
+.vscode/
+.idea/
