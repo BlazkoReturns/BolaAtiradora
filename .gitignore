@@ -9,3 +9,6 @@ venv/
 # Configurações locais de editor
 .vscode/
 .idea/
+
+# Recordes locais do jogo (high score)
+recordes.json

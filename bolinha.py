@@ -12,7 +12,9 @@ class Bolinha:
         # pygame.math.Vector2(x, y) é um vetor 2D do pygame. Ele guarda um par (x, y)
         # e permite fazer contas diretamente: somar vetores, multiplicar por um número,
         # normalizar etc. É muito usado para posições e velocidades.
-        direcao = pygame.math.Vector2(direcao)
+        # Vector2.normalize() devolve um vetor com a mesma direção, mas comprimento 1.
+        # Sem isso, o tiro diagonal (1, 1) teria comprimento ~1,41 e seria mais rápido.
+        direcao = pygame.math.Vector2(direcao).normalize()
 
         # Nascimento: o centro da bolinha fica no perímetro da bola central.
         # Partimos do centro da bola e andamos "raio_bola" pixels na direção do tiro.
@@ -32,8 +34,8 @@ class Bolinha:
 
     def rect(self):
         # Retângulo (pygame.Rect) que envolve a bolinha, usado para testar colisões.
-        # Como bolinhas e quadrados só andam na horizontal ou na vertical, essa
-        # aproximação "caixa em volta do círculo" é suficiente.
+        # Como bolinha e alvo andam na mesma linha reta (horizontal, vertical ou
+        # diagonal), essa aproximação "caixa em volta do círculo" é suficiente.
         caixa = pygame.Rect(0, 0, RAIO_BOLINHA * 2, RAIO_BOLINHA * 2)
         caixa.center = self.posicao
         return caixa
